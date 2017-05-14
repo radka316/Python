@@ -15,11 +15,30 @@ imgg=ImageTk.PhotoImage(resized)
 panel = Label(main, image = imgg)
 panel.grid(row=0, column=0)
 
-#tlacidla
+def black_white () :
+    global act, resized
+    if act=="":
+        img1 = resized
+    else:
+        img1= act
+    
+    data= np.asarray(img1)
+    try:
+        data_out = [0.299, 0.587, 0.114] * data
+        data_out= data_out.sum(axis=2)
+        data_out=np.asarray(data_out, dtype=np.uint8)
+        img_out = Image.fromarray(data_out, 'L')
+    except:
+        return 0
+    act = img_out
+    img_new = ImageTk.PhotoImage(img_out)
+    panel.configure(image = img_new)
+    panel.image= img_new
 
+#tlacidla
 original=Button(main,text="Original", width=10)
 original.grid(row=1, column=0)
-black=Button(main,text="Odstíny šedi", width=10)
+black=Button(main,text="Odstíny šedi", command= black_white, width=10)
 black.grid(row=2, column=0)
 rotate_l=Button(main,text="Otočit", width=10)
 rotate_l.grid(row=3, column=0)
