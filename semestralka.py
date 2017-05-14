@@ -14,3 +14,12 @@ resized= origo.resize((500, height), PIL.Image.ANTIALIAS)
 imgg=ImageTk.PhotoImage(resized)
 panel = Label(main, image = imgg)
 panel.grid(row=0, column=0)
+
+#tlacidla
+
+original=Button(main,text="Original", width=10)
+original.grid(row=1, column=0)
+black=Button(main,text="Odstíny šedi", width=10)
+black.grid(row=2, column=0)
+rotate_l=Button(main,text="Otočit", width=10)
+rotate_l.grid(row=3, column=0)
