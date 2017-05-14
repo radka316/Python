@@ -75,6 +75,44 @@ def invert():
     panel.configure(image = img_new)
     panel.image= img_new
 
+def lighter():
+    global act, resized
+    if act=="":
+        img1 = resized
+    else:
+        img1= act
+    
+    data= np.asarray(img1)
+    mask = (255 - data) < 25
+    data_out = np.where((255-data) < 25,255,data+25)
+    data_out=np.asarray(data_out, dtype=np.uint8)
+    img_out = Image.fromarray(data_out)
+
+    act = img_out
+    img2 = ImageTk.PhotoImage(img_out)
+    panel.configure(image = img2)
+    panel.image= img2
+
+def darker():
+    global act, resized
+    if act=="":
+        img1 = resized
+    else:
+        img1= act
+    
+    data= np.asarray(img1)
+    try:
+        data_out = 0.8 * data
+        
+        data_out=np.asarray(data_out, dtype=np.uint8)
+        img_out = Image.fromarray(data_out)
+    except:
+        return 0
+    act = img_out
+    img2 = ImageTk.PhotoImage(img_out)
+    panel.configure(image = img2)
+    panel.image= img2
+
 #tlacidla
 original=Button(main,text="Original", command=original, width=10)
 original.grid(row=1, column=0)
@@ -84,3 +122,9 @@ rotate_l=Button(main,text="Otočit", command= rotate, width=10)
 rotate_l.grid(row=3, column=0)
 neg=Button(main,text="Inverzní obraz", command=invert, width=10)
 neg.grid(row=5, column=0)
+zes=Button(main,text="Zesvětlení", width=10, command=lighter)
+zes.grid(row=6, column=0)
+ztma=Button(main,text="Ztmavení", width=10, command=darker)
+ztma.grid(row=7, column=0)
+hrany=Button(main,text="Zvýraznění hran", width=10)
+hrany.grid(row=8, column=0)
