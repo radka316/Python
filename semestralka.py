@@ -14,6 +14,7 @@ resized= origo.resize((500, height), PIL.Image.ANTIALIAS)
 imgg=ImageTk.PhotoImage(resized)
 panel = Label(main, image = imgg)
 panel.grid(row=0, column=0)
+act=""
 
 def black_white () :
     global act, resized
@@ -35,8 +36,15 @@ def black_white () :
     panel.configure(image = img_new)
     panel.image= img_new
 
+def original():
+    global act, resized
+    img = ImageTk.PhotoImage(resized)
+    panel.configure(image = img)
+    panel.image= img
+    act= resized
+
 #tlacidla
-original=Button(main,text="Original", width=10)
+original=Button(main,text="Original", command=original, width=10)
 original.grid(row=1, column=0)
 black=Button(main,text="Odstíny šedi", command= black_white, width=10)
 black.grid(row=2, column=0)
