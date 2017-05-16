@@ -3,6 +3,7 @@ import PIL
 from PIL import ImageTk, Image
 import numpy as np
 
+
 main=Tk()
 main.title("Uprava obrazku")
 path = "pizza.jpg" #zadaj cestu k obrazku
@@ -113,6 +114,51 @@ def darker():
     panel.configure(image = img2)
     panel.image= img2
 
+def edges():
+    global act, resized
+    if act=="":
+        img1 = resized
+    else:
+        img1= act
+    
+    data= np.asarray(img1)
+    tmp=data
+    tmp.setflags(write=1)
+    w, h, c = data.shape
+
+    for x in range(1, w - 1):
+        for y in range(1, h - 1):
+            for z in range(c):
+                col = (
+                + 9 * data[x, y, z]
+                - data[x - 1, y, z]
+                - data[x + 1, y, z]
+                - data[x, y + 1, z]
+                - data[x, y - 1, z]
+                - data[x - 1, y + 1, z]
+                - data[x - 1, y - 1, z]
+                - data[x + 1, y - 1, z]
+                - data[x + 1, y + 1, z])
+
+                if col < 0:
+                    col = 0
+
+                if col > 255:
+                    col = 255
+
+                
+                tmp[x, y, z] = col
+
+    data_out=tmp
+    data_out=np.asarray(data, dtype=np.uint8)
+    img_out = Image.fromarray(data_out)
+    act = img_out
+    img2 = ImageTk.PhotoImage(img_out)
+    panel.configure(image = img2)
+    panel.image= img2
+
+
+    
 #tlacidla
 original=Button(main,text="Original", command=original, width=10)
 original.grid(row=1, column=0)
@@ -126,5 +172,5 @@ zes=Button(main,text="Zesvětlení", width=10, command=lighter)
 zes.grid(row=6, column=0)
 ztma=Button(main,text="Ztmavení", width=10, command=darker)
 ztma.grid(row=7, column=0)
-hrany=Button(main,text="Zvýraznění hran", width=10)
+hrany=Button(main,text="Zvýraznění hran", command=edges, width=10)
 hrany.grid(row=8, column=0)
