@@ -6,7 +6,7 @@ import numpy as np
 
 main=Tk()
 main.title("Uprava obrazku")
-path = "pizza.jpg" #zadaj cestu k obrazku
+path = "pizza.jpg" #path to image
 
 origo = Image.open(path)
 width= (500 / float(origo.size[0]))
@@ -159,18 +159,18 @@ def edges():
 
 
     
-#tlacidla
+#buttons
 original=Button(main,text="Original", command=original, width=10)
 original.grid(row=1, column=0)
-black=Button(main,text="Odstíny šedi", command= black_white, width=10)
+black=Button(main,text="Grayscale", command= black_white, width=10)
 black.grid(row=2, column=0)
-rotate_l=Button(main,text="Otočit", command= rotate, width=10)
-rotate_l.grid(row=3, column=0)
-neg=Button(main,text="Inverzní obraz", command=invert, width=10)
+rotate=Button(main,text="Rotate", command= rotate, width=10)
+rotate.grid(row=3, column=0)
+neg=Button(main,text="Negative", command=invert, width=10)
 neg.grid(row=5, column=0)
-zes=Button(main,text="Zesvětlení", width=10, command=lighter)
-zes.grid(row=6, column=0)
-ztma=Button(main,text="Ztmavení", width=10, command=darker)
-ztma.grid(row=7, column=0)
-hrany=Button(main,text="Zvýraznění hran", command=edges, width=10)
-hrany.grid(row=8, column=0)
+light=Button(main,text="Lighten", width=10, command=lighter)
+light.grid(row=6, column=0)
+dark=Button(main,text="Darken", width=10, command=darker)
+dark.grid(row=7, column=0)
+edges=Button(main,text="Sharpen", command=edges, width=10)
+edges.grid(row=8, column=0)
